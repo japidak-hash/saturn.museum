@@ -442,6 +442,60 @@
             text-shadow: 0 0 15px var(--nebula-glow);
             transition: color var(--transition-speed);
         }
+        /* =========================================
+           تعديلات الألوان ووضوح النصوص (بناءً على طلبك)
+           ========================================= */
+
+        /* 1. توضيح نص الوصف تحت اسم القسم (مثل: قسم الرسم - ضباب تيتان) */
+        .gallery-header p {
+            color: #ffffff !important; /* لون أبيض ساطع دائماً */
+            font-size: 1.15rem;
+            font-weight: 700;
+            background-color: rgba(0, 0, 0, 0.65); /* خلفية سوداء شفافة تبرز النص */
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        /* 2. تخصيص لون ثابت لكل زر بناءً على ثيم القسم الخاص به */
+        #btn-home { --btn-theme: #F2C572; --btn-text: #0a0705; }
+        #btn-titan { --btn-theme: #D18A39; --btn-text: #ffffff; }
+        #btn-rhea { --btn-theme: #4A90E2; --btn-text: #ffffff; }
+        #btn-iapetus { --btn-theme: #BDBDBD; --btn-text: #111111; }
+        #btn-enceladus { --btn-theme: #2D82B7; --btn-text: #ffffff; }
+        #btn-dione { --btn-theme: #D4AF37; --btn-text: #111111; }
+
+        /* تطبيق لون الإطار الثابت لكل زر */
+        nav button {
+            border: 1px solid var(--btn-theme) !important;
+        }
+
+        /* تلوين الكلمة الإنجليزية (اسم القمر) بلون الثيم الثابت */
+        nav button .moon-name {
+            color: var(--btn-theme) !important;
+        }
+
+        /* تأثير عند وضع الماوس على الزر (Hover) */
+        nav button:hover {
+            border-color: var(--btn-theme) !important;
+            box-shadow: 0 5px 15px var(--btn-theme) !important;
+        }
+
+        /* تأثير عند تفعيل الزر (الدخول للقسم) */
+        nav button.active {
+            background-color: var(--btn-theme) !important;
+            border-color: var(--btn-theme) !important;
+            box-shadow: 0 8px 25px var(--btn-theme) !important;
+        }
+
+        /* تلوين النصوص داخل الزر عند تفعيله لتتناسب مع لون الخلفية الجديدة */
+        nav button.active .moon-name,
+        nav button.active .art-type {
+            color: var(--btn-text) !important;
+        }
     </style>
 </head>
 <body class="theme-home">
@@ -537,11 +591,11 @@
         };
 
         const sectionMeta = {
-            titan: { title: "Titan", subtitle: "قسم الرسم — ضباب تيتان الذهبي", themeClass: "theme-titan" },
-            rhea: { title: "Rhea", subtitle: "قسم التلوين — الجليد المضيء", themeClass: "theme-rhea" },
-            iapetus: { title: "Iapetus", subtitle: "قسم التصوير — النور والظل", themeClass: "theme-iapetus" },
-            enceladus: { title: "Enceladus", subtitle: "قسم التصميم — النقاء المستقبلي", themeClass: "theme-enceladus" },
-            dione: { title: "Dione", subtitle: "قسم الخط — المخطوطات الملكية", themeClass: "theme-dione" }
+            titan: { title: "Titan", subtitle: "قسم الرسم", themeClass: "theme-titan" },
+            rhea: { title: "Rhea", subtitle: "قسم  التلوينء", themeClass: "theme-rhea" },
+            iapetus: { title: "Iapetus", subtitle: "قسم التصوير", themeClass: "theme-iapetus" },
+            enceladus: { title: "Enceladus", subtitle: "قسم التصميم", themeClass: "theme-enceladus" },
+            dione: { title: "Dione", subtitle: "قسم الخط", themeClass: "theme-dione" }
         };
 
         let currentPage = 'home'; 
