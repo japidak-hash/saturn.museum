@@ -496,6 +496,32 @@
         nav button.active .art-type {
             color: var(--btn-text) !important;
         }
+        /* ========================================================
+           كود السحر السينمائي: حل مشكلة "الخربطة" وسلاسة الألوان بالكامل
+           ======================================================== */
+        
+        /* نأمر المتصفح بتحريك كل العناصر التي تتأثر بالثيم بنفس التوقيت وبنعومة فائقة */
+        body, 
+        header, 
+        footer, 
+        nav button, 
+        .home-card, 
+        .art-card, 
+        .search-container input, 
+        h1, h2, h3, p, span, .moon-name, .art-type, .stars, body::before {
+            transition: 
+                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.4s ease,
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                filter 0.6s ease !important;
+        }
+
+        /* تسريع اختفاء وظهور النصوص داخل القسم لمنع تداخل الكلام أثناء قلب الصفحة */
+        #content-area {
+            transition: opacity 0.25s ease-in-out !important;
+        }
     </style>
 </head>
 <body class="theme-home">
