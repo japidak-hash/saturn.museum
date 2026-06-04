@@ -522,19 +522,24 @@
         #content-area {
             transition: opacity 0.25s ease-in-out !important;
         }
-        /* === تنسيقات شاشة التحميل الكونية === */
+        /* === التنسيق المطور لشاشة التحميل === */
         #space-preloader {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: #0a0705; /* نفس لون ثيم زحل الداكن للموقع */
-            z-index: 99999; /* رقم ضخم لضمان تغطية كل عناصر الموقع */
+            background-color: #050302; /* أسود فضائي عميق */
+            z-index: 999999;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        /* هذا الكلاس هو سر عدم تجمد الموقع */
+        #space-preloader.hide-loader {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* يسمح للماوس باختراق الشاشة والضغط على الموقع حتى أثناء التلاشي */
         }
 
         .cosmic-loader-content {
@@ -544,119 +549,51 @@
             align-items: center;
         }
 
-        /* هيكل كوكب زحل الفني */
-        .saturn-canvas {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin-bottom: 25px;
-        }
-
-        /* جسد الكوكب */
+        .saturn-canvas { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
+        
         .saturn-ball {
-            position: absolute;
-            top: 35px; left: 35px;
+            position: absolute; top: 25px; left: 25px;
             width: 50px; height: 50px;
-            background: radial-gradient(circle at 30% 30%, #F2C572, #D18A39);
+            background: linear-gradient(135deg, #F2C572, #D18A39);
             border-radius: 50%;
-            box-shadow: 0 0 30px rgba(242, 197, 114, 0.4);
+            box-shadow: 0 0 20px rgba(242, 197, 114, 0.3);
         }
 
-        /* حلقات زحل المحاكية للواقع */
         .saturn-rings-loader {
-            position: absolute;
-            top: 48px; left: 10px;
-            width: 100px;
-            height: 20px;
-            border: 4px solid #D9B48F;
+            position: absolute; top: 40px; left: -5px;
+            width: 110px; height: 15px;
+            border: 3px solid rgba(217, 180, 143, 0.8);
             border-radius: 50%;
-            transform: rotate(-15deg);
-            animation: ringGlow 2s infinite alternate ease-in-out;
+            transform: rotate(-20deg);
+            box-shadow: 0 0 10px rgba(217, 180, 143, 0.2) inset;
         }
 
-        /* مدار فرشاة الرسم المضيء */
-        .art-brush-orbit {
-            position: absolute;
-            top: 10px; left: 10px;
-            width: 100px; height: 100px;
-            border: 1px dashed rgba(242, 197, 114, 0.15);
-            border-radius: 50%;
-            animation: orbitSpin 2.5s infinite linear;
-        }
-
-        /* رأس الفرشاة المشع الذي يرسم المدار */
-        .art-brush-orbit::after {
-            content: '';
-            position: absolute;
-            top: -5px; left: 50%;
-            width: 10px; height: 10px;
-            background-color: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700;
-        }
-
-        /* أنيميشن نبض الحلقات ودوران المدار الفني */
-        @keyframes ringGlow {
-            0% { transform: rotate(-15deg) scale(0.98); opacity: 0.7; }
-            100% { transform: rotate(-15deg) scale(1.03); opacity: 1; }
-        }
-
-        @keyframes orbitSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* نصوص شاشة التحميل */
         .loader-title {
-            color: #F2C572;
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            font-family: Arial, sans-serif;
-            animation: pulseText 1.5s infinite alternate ease-in-out;
+            color: #F2C572; font-size: 1.5rem; font-weight: bold;
+            letter-spacing: 3px; margin-bottom: 5px;
+            animation: textGlow 1.5s infinite alternate;
         }
 
-        .loader-subtitle {
-            color: #fcf6eb;
-            font-size: 0.95rem;
-            opacity: 0.6;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
+        .loader-subtitle { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
 
-        /* شريط التقدم الأسفل */
         .progress-bar-container {
-            width: 220px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            overflow: hidden;
+            width: 200px; height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px; overflow: hidden;
         }
 
         .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #D18A39, #F2C572);
+            height: 100%; width: 0%;
+            background: #F2C572;
             box-shadow: 0 0 10px #F2C572;
-            animation: fillProgress 2.2s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+            animation: fillUp 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        @keyframes pulseText {
-            0% { opacity: 0.6; text-shadow: 0 0 10px rgba(242, 197, 114, 0); }
-            100% { opacity: 1; text-shadow: 0 0 20px rgba(242, 197, 114, 0.5); }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(242, 197, 114, 0.2); }
+            100% { text-shadow: 0 0 15px rgba(242, 197, 114, 0.8); }
         }
-
-        @keyframes fillProgress {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        /* كلاس الاختفاء السلس */
-        #space-preloader.fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
+        @keyframes fillUp { 100% { width: 100%; } }
     </style>
 </head>
 <body class="theme-home">
@@ -923,6 +860,35 @@
             `;
        
         }
+        // كود التحكم الاحترافي بشاشة التحميل (مضاد للتجمد)
+        document.addEventListener("DOMContentLoaded", () => {
+            const preloader = document.getElementById('space-preloader');
+            if (!preloader) return;
+
+            let isPreloaderRemoved = false;
+
+            // الدالة المسؤولة عن الإخفاء والحذف
+            const removeLoader = () => {
+                if (isPreloaderRemoved) return; // لمنع تكرار الأمر
+                isPreloaderRemoved = true;
+                
+                // إضافة كلاس الإخفاء الذي يعطل حجب الماوس فوراً
+                preloader.classList.add('hide-loader');
+                
+                // تنظيف الكود وحذفه من الـ DOM بعد انتهاء الحركة
+                setTimeout(() => {
+                    preloader.remove();
+                }, 600);
+            };
+
+            // الحالة الأولى: إذا تم تحميل الموقع بسرعة، انتظر ثانية ونصف فقط ليرى الزائر التصميم
+            window.addEventListener('load', () => {
+                setTimeout(removeLoader, 1500); 
+            });
+
+            // الحالة الثانية (مؤقت الطوارئ): إخفاء إجباري بعد 3 ثوانٍ حتى لو لم تكتمل الصور
+            setTimeout(removeLoader, 3000);
+        });
     </script>
     <footer>
         <div class="footer-content">
@@ -931,4 +897,17 @@
         </div>
     </footer>
 </body>
+<div id="space-preloader">
+        <div class="cosmic-loader-content">
+            <div class="saturn-canvas">
+                <div class="saturn-ball"></div>
+                <div class="saturn-rings-loader"></div>
+            </div>
+            <h2 class="loader-title">SATURN MUSEUM</h2>
+            <p class="loader-subtitle">جاري تجهيز اللوحات الفنية...</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
+    </div>
 </html>
