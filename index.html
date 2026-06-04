@@ -714,39 +714,6 @@
 
     <main id="content-area">
         </main>
-// كود تشغيل وإخفاء شاشة تحميل متحف ساترن
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('space-preloader');
-            
-            // نمنح المستخدم دقيقتين من المتعة البصرية ليتزامن مع امتلاء شريط التقدم
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
-                
-                // حذف الشاشة تماماً من الـ DOM بعد انتهاء أنيميشن التلاشي لمنع حجز الذاكرة
-                setTimeout(() => {
-                    preloader.remove();
-                }, 800); 
-            }, 2300); // تعرض لمدة 2.3 ثانية لتكتمل الحركة الفنية بسلاسة
-        });
-        // كود تشغيل وإخفاء شاشة تحميل متحف ساترن (نسخة الإخفاء الإجباري)
-        function removePreloader() {
-            const preloader = document.getElementById('space-preloader');
-            if (preloader) {
-                preloader.classList.add('fade-out');
-                // حذفه من الكود بعد اختفائه لعدم التأثير على أزرار الموقع
-                setTimeout(() => {
-                    preloader.remove();
-                }, 800);
-            }
-        }
-
-        // تشغيل أمر الإخفاء بمجرد اكتمال قراءة الكود الأساسي (لا ينتظر الصور الثقيلة)
-        document.addEventListener("DOMContentLoaded", () => {
-            setTimeout(removePreloader, 2300); // سيختفي بعد 2.3 ثانية
-        });
-
-        // كود أمان احتياطي (Fail-safe) لإخفائه فوراً إذا تم تحميل الموقع بسرعة فائقة
-        window.addEventListener('load', removePreloader);
     <script>
         const galleryData = {
             titan: [
