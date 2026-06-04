@@ -7,16 +7,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
-        /* === إعدادات المتغيرات العامة (CSS Variables) === */
+        /* === إعدادات الصفحة الرئيسية (ثيم كوكب زحل المميز) === */
         :root {
-            --bg-color: #0b0f19; 
-            --text-color: #ffffff;
-            --accent-1: #D4AF37;
-            --accent-2: #ffffff;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg-color: #0a0705; /* فضاء داكن جداً مائل للدفء */
+            --text-color: #fcf6eb; /* لون كريمي فاتح ومريح */
+            --accent-1: #F2C572; /* ذهبي ساطع مستوحى من حلقات زحل */
+            --accent-2: #D9B48F; /* نحاسي هادئ */
+            --card-bg: rgba(242, 197, 114, 0.04);
+            --border-color: rgba(242, 197, 114, 0.15);
             --transition-speed: 0.5s;
-            --nebula-glow: rgba(212, 175, 55, 0.06);
+            --nebula-glow: rgba(242, 197, 114, 0.15);
         }
 
         /* ثيمات الأقسام المخصصة */
@@ -32,7 +32,7 @@
         body.theme-rhea {
             --bg-color: #F8F8F8; 
             --text-color: #1c2529; 
-            --accent-1: #4A90E2; /* تم تلميعه قليلاً ليتناسب مع الخلفية البيضاء ويزيد الوضوح */
+            --accent-1: #4A90E2; 
             --accent-2: #B7D7E8; 
             --card-bg: rgba(255, 255, 255, 0.9);
             --border-color: #D9D9D9;
@@ -50,7 +50,7 @@
         body.theme-enceladus {
             --bg-color: #FFFFFF; 
             --text-color: #111111; 
-            --accent-1: #2D82B7; /* تلميع بسيط لتباين القراءة */
+            --accent-1: #2D82B7; 
             --accent-2: #9FE2FF; 
             --card-bg: rgba(240, 248, 255, 0.9);
             --border-color: #D7E3EA;
@@ -66,12 +66,11 @@
             --nebula-glow: rgba(212, 175, 55, 0.1);
         }
 
-        /* === التنسيقات الأساسية === */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif; /* تطبيق الخط الجديد */
+            font-family: 'Tajawal', sans-serif; 
         }
 
         body {
@@ -83,7 +82,6 @@
             position: relative;
         }
 
-        /* تأثير سديم الفضاء المتوهج المتغير ديناميكياً */
         body::before {
             content: '';
             position: fixed;
@@ -102,22 +100,28 @@
             100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
         }
 
-        /* تأثير النجوم المتلألئة */
+        /* تأثير النجوم المتلألئة (أكثر وضوحاً) */
         .stars {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: -2;
             background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-            opacity: 0.6;
+            opacity: 0.9; /* تم زيادة الوضوح بشكل كبير */
+            transition: filter var(--transition-speed) ease, opacity var(--transition-speed) ease;
         }
 
-        /* === الرأس (Header) === */
+        /* عكس لون النجوم في الأقسام البيضاء لتكون مرئية وواضحة */
+        body.theme-rhea .stars, body.theme-enceladus .stars {
+            filter: invert(1);
+            opacity: 0.5;
+        }
+
         header {
             text-align: center;
             padding: 35px 20px 25px 20px;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.25), transparent);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
@@ -128,65 +132,112 @@
             color: var(--accent-1);
             margin-bottom: 8px;
             letter-spacing: -0.5px;
-            text-shadow: 0 0 20px var(--nebula-glow);
+            text-shadow: 0 0 25px var(--nebula-glow);
             transition: color var(--transition-speed);
         }
 
         .subtitle {
             font-size: 1.05rem;
             color: var(--text-color);
-            opacity: 0.75;
-            margin-bottom: 30px;
+            opacity: 0.8;
+            margin-bottom: 25px;
             font-weight: 500;
         }
 
-        /* === الحل البرمجي لترتيب الأقسام بجانب بعضها (شريط أفقي ذكي) === */
+        /* === تنسيقات شريط البحث === */
+        .search-container {
+            margin: 0 auto 25px auto;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            text-align: right;
+        }
+
+        /* تعديل لون البحث في الأقسام المضيئة */
+        body.theme-rhea .search-container input, body.theme-enceladus .search-container input {
+            background: rgba(0, 0, 0, 0.05);
+            color: #111;
+        }
+
+        .search-container input::placeholder {
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .search-container input:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 15px var(--nebula-glow);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* === شريط الأقسام (تعديل الأزرار لتعرض الأسماء بطابقين) === */
         nav {
             display: flex;
-            justify-content: flex-start; /* يبدأ بجانب بعضه */
+            justify-content: flex-start; 
             gap: 12px;
-            overflow-x: auto; /* يسمح بالسحب الأفقي على الجوال */
+            overflow-x: auto; 
             padding: 10px 20px;
             scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; /* سحب ناعم على الآيفون */
+            -webkit-overflow-scrolling: touch; 
         }
 
-        /* إخفاء شريط التمرير الافتراضي المزعج بصرياً */
-        nav::-webkit-scrollbar {
-            display: none;
-        }
-        nav {
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
-        }
+        nav::-webkit-scrollbar { display: none; }
+        nav { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* موازنة الأزرار في ديسكتوب ليصبح في المنتصف */
         @media (min-width: 769px) {
-            nav {
-                justify-content: center;
-                overflow-x: visible;
-            }
+            nav { justify-content: center; overflow-x: visible; }
         }
 
-        /* تصميم الأزرار وحركتها الاحترافية */
         nav button {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-color);
-            padding: 10px 22px;
-            border-radius: 50px;
+            padding: 8px 25px;
+            border-radius: 15px; /* شكل المربع ذو الزوايا الدائرية يناسب النصوص المزدوجة أكثر */
             cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 700;
-            white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: inline-block;
+            
+            /* تفعيل العرض الطابقي (كلمة فوق كلمة) */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        /* تنسيق الكلمة الإنجليزية (اسم القمر) */
+        .moon-name {
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-family: Arial, sans-serif; /* خط مميز للإنجليزية */
+        }
+
+        /* تنسيق الكلمة العربية (نوع الفن) */
+        .art-type {
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.8;
         }
 
         nav button:hover {
             transform: translateY(-4px);
             border-color: var(--accent-1);
             box-shadow: 0 5px 15px var(--nebula-glow);
+            background: rgba(255, 255, 255, 0.08);
         }
 
         nav button.active {
@@ -197,7 +248,11 @@
             box-shadow: 0 8px 25px var(--nebula-glow);
         }
 
-        /* === المحتوى (Main Content) === */
+        nav button.active .art-type {
+            opacity: 1;
+            font-weight: 700;
+        }
+
         main {
             padding: 40px 5%;
             max-width: 1200px;
@@ -210,7 +265,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تنسيقات كروت الصفحة الرئيسية الفضائية */
         .home-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -229,10 +283,7 @@
             animation: floatEffect 6s infinite ease-in-out alternate;
         }
 
-        /* تأثير الطفو الكوني للكروت */
-        .home-card:nth-child(2) {
-            animation-delay: 1.5s;
-        }
+        .home-card:nth-child(2) { animation-delay: 1.5s; }
 
         @keyframes floatEffect {
             0% { transform: translateY(0px); }
@@ -266,7 +317,6 @@
             background: var(--accent-1);
         }
 
-        /* تنسيقات قاعات الفن */
         .gallery-header {
             text-align: center;
             margin-bottom: 40px;
@@ -292,12 +342,27 @@
             backdrop-filter: blur(10px);
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
         }
 
         .art-card:hover {
             transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-1);
             box-shadow: 0 15px 35px var(--nebula-glow);
+        }
+
+        .moon-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 1px solid var(--accent-1);
+            z-index: 2;
         }
 
         .art-image-container {
@@ -315,12 +380,10 @@
         }
         
         .art-card:hover .art-image {
-            transform: scale(1.08); /* زووم خفيف محترف عند تمرير الماوس */
+            transform: scale(1.08); 
         }
 
-        .art-info {
-            padding: 22px;
-        }
+        .art-info { padding: 22px; }
 
         .art-info h3 {
             color: var(--accent-1);
@@ -344,14 +407,10 @@
             line-height: 1.7;
         }
 
-        /* توافق الهواتف للـ Layout */
         @media (max-width: 768px) {
-            .home-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+            .home-layout { grid-template-columns: 1fr; gap: 20px; }
             h1 { font-size: 2.2rem; }
-            .home-card { animation: none; } /* إيقاف الطفو على الجوال لراحة العين وتوفير البطارية */
+            .home-card { animation: none; } 
         }
     </style>
 </head>
@@ -361,13 +420,36 @@
     <header>
         <h1>متحف ساترن</h1>
         <p class="subtitle">هذا المتحف تابع لأكاديمية الفنون</p>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ابحث عن لوحة، فنان، أو وصف..." oninput="handleSearch()">
+        </div>
+
         <nav id="nav-buttons">
-            <button onclick="loadPage('home')" id="btn-home" class="active">الرئيسية</button>
-            <button onclick="loadPage('titan')" id="btn-titan">الرسم — Titan</button>
-            <button onclick="loadPage('rhea')" id="btn-rhea">التلوين — Rhea</button>
-            <button onclick="loadPage('iapetus')" id="btn-iapetus">التصوير — Iapetus</button>
-            <button onclick="loadPage('enceladus')" id="btn-enceladus">التصميم — Enceladus</button>
-            <button onclick="loadPage('dione')" id="btn-dione">الخط — Dione</button>
+            <button onclick="loadPage('home')" id="btn-home" class="active">
+                <span class="moon-name">Saturn</span>
+                <span class="art-type">الرئيسية</span>
+            </button>
+            <button onclick="loadPage('titan')" id="btn-titan">
+                <span class="moon-name">Titan</span>
+                <span class="art-type">الرسم</span>
+            </button>
+            <button onclick="loadPage('rhea')" id="btn-rhea">
+                <span class="moon-name">Rhea</span>
+                <span class="art-type">التلوين</span>
+            </button>
+            <button onclick="loadPage('iapetus')" id="btn-iapetus">
+                <span class="moon-name">Iapetus</span>
+                <span class="art-type">التصوير</span>
+            </button>
+            <button onclick="loadPage('enceladus')" id="btn-enceladus">
+                <span class="moon-name">Enceladus</span>
+                <span class="art-type">التصميم</span>
+            </button>
+            <button onclick="loadPage('dione')" id="btn-dione">
+                <span class="moon-name">Dione</span>
+                <span class="art-type">الخط</span>
+            </button>
         </nav>
     </header>
 
@@ -375,7 +457,6 @@
         </main>
 
     <script>
-        // === لوحة التحكم بالصور والمحتوى (دون تعديل الكلمات) ===
         const galleryData = {
             titan: [
                 {
@@ -426,14 +507,19 @@
         };
 
         const sectionMeta = {
-            titan: { title: "الرسم — Titan", subtitle: "ثيم: ضباب تيتان الذهبي", themeClass: "theme-titan" },
-            rhea: { title: "التلوين — Rhea", subtitle: "ثيم: الجليد المضيء", themeClass: "theme-rhea" },
-            iapetus: { title: "التصوير — Iapetus", subtitle: "ثيم: النور والظل", themeClass: "theme-iapetus" },
-            enceladus: { title: "التصميم — Enceladus", subtitle: "ثيم: النقاء المستقبلي", themeClass: "theme-enceladus" },
-            dione: { title: "الخط — Dione", subtitle: "ثيم: المخطوطات الملكية", themeClass: "theme-dione" }
+            titan: { title: "Titan", subtitle: "قسم الرسم — ضباب تيتان الذهبي", themeClass: "theme-titan" },
+            rhea: { title: "Rhea", subtitle: "قسم التلوين — الجليد المضيء", themeClass: "theme-rhea" },
+            iapetus: { title: "Iapetus", subtitle: "قسم التصوير — النور والظل", themeClass: "theme-iapetus" },
+            enceladus: { title: "Enceladus", subtitle: "قسم التصميم — النقاء المستقبلي", themeClass: "theme-enceladus" },
+            dione: { title: "Dione", subtitle: "قسم الخط — المخطوطات الملكية", themeClass: "theme-dione" }
         };
 
+        let currentPage = 'home'; 
+
         function loadPage(pageId) {
+            document.getElementById('searchInput').value = '';
+            currentPage = pageId;
+            
             const contentArea = document.getElementById('content-area');
             
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
@@ -451,6 +537,67 @@
                 }
                 contentArea.style.opacity = 1;
             }, 200);
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const contentArea = document.getElementById('content-area');
+
+            if (query === '') {
+                loadPage(currentPage);
+                return;
+            }
+
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            document.body.className = 'theme-home'; 
+
+            let searchResults = [];
+
+            for (const moonId in galleryData) {
+                const artworks = galleryData[moonId];
+                artworks.forEach(art => {
+                    if (
+                        art.title.toLowerCase().includes(query) ||
+                        art.artist.toLowerCase().includes(query) ||
+                        art.desc.toLowerCase().includes(query)
+                    ) {
+                        searchResults.push({ ...art, moonName: sectionMeta[moonId].title });
+                    }
+                });
+            }
+
+            let cardsHtml = '';
+            if (searchResults.length > 0) {
+                searchResults.forEach(art => {
+                    cardsHtml += `
+                        <div class="art-card">
+                            <div class="moon-badge">${art.moonName}</div>
+                            <div class="art-image-container">
+                                <img src="${art.imgUrl}" alt="${art.title}" class="art-image" onerror="this.src='https://via.placeholder.com/400x250?text=Image+Not+Found'">
+                            </div>
+                            <div class="art-info">
+                                <h3>${art.title}</h3>
+                                <span class="artist">الفنان: ${art.artist}</span>
+                                <p>${art.desc}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                cardsHtml = `<p style="text-align:center; grid-column: 1/-1; opacity:0.8; font-size:1.2rem; margin-top:40px;">لم يتم العثور على نتائج تطابق "${query}" 🌌</p>`;
+            }
+
+            contentArea.innerHTML = `
+                <div class="gallery-header">
+                    <h2>نتائج البحث</h2>
+                    <p>عن: ${query}</p>
+                </div>
+                <div class="gallery-grid">
+                    ${cardsHtml}
+                </div>
+            `;
+            
+            contentArea.style.opacity = 1;
         }
 
         function renderHomePage() {
@@ -522,4 +669,3 @@
     </script>
 </body>
 </html>
-ا
