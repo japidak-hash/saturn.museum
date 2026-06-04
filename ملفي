@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متحف ساترن</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+        /* === إعدادات المتغيرات العامة (CSS Variables) === */
+        :root {
+            --bg-color: #0b0f19; 
+            --text-color: #ffffff;
+            --accent-1: #D4AF37;
+            --accent-2: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --transition-speed: 0.5s;
+            --nebula-glow: rgba(212, 175, 55, 0.06);
+        }
+
+        /* ثيمات الأقسام المخصصة */
+        body.theme-titan {
+            --bg-color: #1A1A1A; 
+            --text-color: #E8D4B0; 
+            --accent-1: #D18A39; 
+            --accent-2: #A65A2A; 
+            --card-bg: rgba(26, 26, 26, 0.6);
+            --border-color: rgba(209, 138, 57, 0.3);
+            --nebula-glow: rgba(209, 138, 57, 0.12);
+        }
+        body.theme-rhea {
+            --bg-color: #F8F8F8; 
+            --text-color: #1c2529; 
+            --accent-1: #4A90E2; /* تم تلميعه قليلاً ليتناسب مع الخلفية البيضاء ويزيد الوضوح */
+            --accent-2: #B7D7E8; 
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: #D9D9D9;
+            --nebula-glow: rgba(183, 215, 232, 0.4);
+        }
+        body.theme-iapetus {
+            --bg-color: #111111; 
+            --text-color: #FFFFFF; 
+            --accent-1: #BDBDBD; 
+            --accent-2: #6E6E6E; 
+            --card-bg: rgba(28, 28, 28, 0.7);
+            --border-color: #6E6E6E;
+            --nebula-glow: rgba(255, 255, 255, 0.05);
+        }
+        body.theme-enceladus {
+            --bg-color: #FFFFFF; 
+            --text-color: #111111; 
+            --accent-1: #2D82B7; /* تلميع بسيط لتباين القراءة */
+            --accent-2: #9FE2FF; 
+            --card-bg: rgba(240, 248, 255, 0.9);
+            --border-color: #D7E3EA;
+            --nebula-glow: rgba(159, 226, 255, 0.4);
+        }
+        body.theme-dione {
+            --bg-color: #151515; 
+            --text-color: #F3E9D2; 
+            --accent-1: #D4AF37; 
+            --accent-2: #5E412F; 
+            --card-bg: rgba(30, 25, 22, 0.7);
+            --border-color: #D4AF37;
+            --nebula-glow: rgba(212, 175, 55, 0.1);
+        }
+
+        /* === التنسيقات الأساسية === */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif; /* تطبيق الخط الجديد */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1), color var(--transition-speed) ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تأثير سديم الفضاء المتوهج المتغير ديناميكياً */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%; left: 50%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, var(--nebula-glow) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+            transition: background var(--transition-speed) ease;
+            animation: cosmicPulse 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes cosmicPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        }
+
+        /* تأثير النجوم المتلألئة */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            opacity: 0.6;
+        }
+
+        /* === الرأس (Header) === */
+        header {
+            text-align: center;
+            padding: 35px 20px 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--accent-1);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px var(--nebula-glow);
+            transition: color var(--transition-speed);
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            opacity: 0.75;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        /* === الحل البرمجي لترتيب الأقسام بجانب بعضها (شريط أفقي ذكي) === */
+        nav {
+            display: flex;
+            justify-content: flex-start; /* يبدأ بجانب بعضه */
+            gap: 12px;
+            overflow-x: auto; /* يسمح بالسحب الأفقي على الجوال */
+            padding: 10px 20px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch; /* سحب ناعم على الآيفون */
+        }
+
+        /* إخفاء شريط التمرير الافتراضي المزعج بصرياً */
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+        nav {
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+
+        /* موازنة الأزرار في ديسكتوب ليصبح في المنتصف */
+        @media (min-width: 769px) {
+            nav {
+                justify-content: center;
+                overflow-x: visible;
+            }
+        }
+
+        /* تصميم الأزرار وحركتها الاحترافية */
+        nav button {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 700;
+            white-space: nowrap; /* يمنع النص من النزول لسطر جديد */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+        }
+
+        nav button:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-1);
+            box-shadow: 0 5px 15px var(--nebula-glow);
+        }
+
+        nav button.active {
+            background-color: var(--accent-1);
+            color: var(--bg-color) !important;
+            border-color: var(--accent-1);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px var(--nebula-glow);
+        }
+
+        /* === المحتوى (Main Content) === */
+        main {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 0.7s cubic-bezier(0.215, 0.610, 0.355, 1);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيقات كروت الصفحة الرئيسية الفضائية */
+        .home-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            line-height: 1.9;
+        }
+        
+        .home-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: floatEffect 6s infinite ease-in-out alternate;
+        }
+
+        /* تأثير الطفو الكوني للكروت */
+        .home-card:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-12px); }
+        }
+
+        .home-card h2 {
+            color: var(--accent-1);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            transition: color var(--transition-speed);
+        }
+
+        .teachers-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+            color: #0b0f19;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        body.theme-rhea .teachers-badge, body.theme-enceladus .teachers-badge {
+            color: #ffffff;
+            background: var(--accent-1);
+        }
+
+        /* تنسيقات قاعات الفن */
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .gallery-header h2 {
+            font-size: 2.3rem;
+            color: var(--accent-1);
+            margin-bottom: 8px;
+            font-weight: 900;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .art-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .art-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-1);
+            box-shadow: 0 15px 35px var(--nebula-glow);
+        }
+
+        .art-image-container {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .art-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .art-card:hover .art-image {
+            transform: scale(1.08); /* زووم خفيف محترف عند تمرير الماوس */
+        }
+
+        .art-info {
+            padding: 22px;
+        }
+
+        .art-info h3 {
+            color: var(--accent-1);
+            margin-bottom: 6px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .art-info .artist {
+            font-size: 0.88rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .art-info p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* توافق الهواتف للـ Layout */
+        @media (max-width: 768px) {
+            .home-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            h1 { font-size: 2.2rem; }
+            .home-card { animation: none; } /* إيقاف الطفو على الجوال لراحة العين وتوفير البطارية */
+        }
+    </style>
+</head>
+<body class="theme-home">
+    <div class="stars"></div>
+
+    <header>
+        <h1>متحف ساترن</h1>
+        <p class="subtitle">هذا المتحف تابع لأكاديمية الفنون</p>
+        <nav id="nav-buttons">
+            <button onclick="loadPage('home')" id="btn-home" class="active">الرئيسية</button>
+            <button onclick="loadPage('titan')" id="btn-titan">الرسم — Titan</button>
+            <button onclick="loadPage('rhea')" id="btn-rhea">التلوين — Rhea</button>
+            <button onclick="loadPage('iapetus')" id="btn-iapetus">التصوير — Iapetus</button>
+            <button onclick="loadPage('enceladus')" id="btn-enceladus">التصميم — Enceladus</button>
+            <button onclick="loadPage('dione')" id="btn-dione">الخط — Dione</button>
+        </nav>
+    </header>
+
+    <main id="content-area">
+        </main>
+
+    <script>
+        // === لوحة التحكم بالصور والمحتوى (دون تعديل الكلمات) ===
+        const galleryData = {
+            titan: [
+                {
+                    title: "عاصفة تيتان الذهبية",
+                    artist: "فنان الأكاديمية",
+                    desc: "لوحة زيتية تعبر عن العواصف الرملية والضباب الكثيف في غلاف تيتان.",
+                    imgUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500"
+                },
+                {
+                    title: "شروق زحل النحاسي",
+                    artist: "رهف",
+                    desc: "رؤية فنية مذهلة لبريق الحلقات عند انعكاس الضوء الذهبي.",
+                    imgUrl: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500"
+                }
+            ],
+            rhea: [
+                {
+                    title: "بلورات الصقيع المضيء",
+                    artist: "رغد",
+                    desc: "عمل فني رقمي يبرز جمال التلوين والأزرق الجليدي المتلألئ.",
+                    imgUrl: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500"
+                }
+            ],
+            iapetus: [
+                {
+                    title: "التضاد الكوني",
+                    artist: "ليلى",
+                    desc: "صورة فوتوغرافية عالية التباين، تلعب على التضاد الحاد بين النور الساطع والظلام الدامس.",
+                    imgUrl: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=500"
+                }
+            ],
+            enceladus: [
+                {
+                    title: "بوابة الغد الهندسية",
+                    artist: "كارول",
+                    desc: "تصميم واجهة مستخدم وهياكل ثلاثية الأبعاد تعتمد على درجات السماوي الفضي لخلق طابع تكنولوجي مستقبلية.",
+                    imgUrl: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500"
+                }
+            ],
+            dione: [
+                {
+                    title: "مخطوطة الملوك السبعة",
+                    artist: "خطاط الأكاديمية",
+                    desc: "مخطوطة عربية كلاسيكية مكتوبة بماء الذهب على ورق كريمي فاخر.",
+                    imgUrl: "https://images.unsplash.com/photo-1561715276-a2d087060f1d?w=500"
+                }
+            ]
+        };
+
+        const sectionMeta = {
+            titan: { title: "الرسم — Titan", subtitle: "ثيم: ضباب تيتان الذهبي", themeClass: "theme-titan" },
+            rhea: { title: "التلوين — Rhea", subtitle: "ثيم: الجليد المضيء", themeClass: "theme-rhea" },
+            iapetus: { title: "التصوير — Iapetus", subtitle: "ثيم: النور والظل", themeClass: "theme-iapetus" },
+            enceladus: { title: "التصميم — Enceladus", subtitle: "ثيم: النقاء المستقبلي", themeClass: "theme-enceladus" },
+            dione: { title: "الخط — Dione", subtitle: "ثيم: المخطوطات الملكية", themeClass: "theme-dione" }
+        };
+
+        function loadPage(pageId) {
+            const contentArea = document.getElementById('content-area');
+            
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${pageId}`).classList.add('active');
+
+            contentArea.style.opacity = 0;
+
+            setTimeout(() => {
+                if (pageId === 'home') {
+                    document.body.className = 'theme-home';
+                    contentArea.innerHTML = renderHomePage();
+                } else {
+                    document.body.className = sectionMeta[pageId].themeClass;
+                    contentArea.innerHTML = renderGalleryPage(pageId);
+                }
+                contentArea.style.opacity = 1;
+            }, 200);
+        }
+
+        function renderHomePage() {
+            return `
+                <div class="home-layout">
+                    <div class="home-card">
+                        <h2>إدارة الأكاديمية والمتحف</h2>
+                        <div class="teachers-badge">المعلم الأساسي: رهف / ليلى</div><br>
+                        <div class="teachers-badge">نائب المعلم: رغد / كارول</div>
+                        
+                        <h2 style="margin-top: 25px;">عن أكاديمية الفنون</h2>
+                        <p>أكاديمية الفنون هي صرح إبداعي يهدف إلى صقل المواهب وتوجيهها نحو الابتكار، نؤمن بأن الفن ليس مجرد هواية، بل هو لغة عالمية تتجاوز حدود الكواكب.</p>
+                        
+                        <h2 style="margin-top: 25px;">عن الموقع</h2>
+                        <p>متحف ساترن هو المعرض الرقمي الرسمي لأكاديمية الفنون. تم استلهام أقسامه من أقمار كوكب زحل، حيث يمثل كل قمر ثيماً فنياً فريداً يعكس نوعاً من أنواع الفنون البصرية المذهلة.</p>
+                    </div>
+                    <div class="home-card">
+                        <h2>قصة الاكتشاف</h2>
+                        <p>في رحلة استكشافية خيالية عبر الفضاء السحيق، كانت <strong>رغد</strong> و<strong>رهف</strong> تبحران بمركبتهما الفضائية بحثاً عن إلهام جديد. عندما اقتربتا من كوكب زحل (Saturn)، ذهلتا من جمال حلقاته وأقماره المتلألئة البديعة.</p>
+                        <p>قررتا ألا يكتفيا بالمشاهدة، بل أن تحوّلا هذه الأقمار إلى قاعات عرض فنية تنبض بالإبداع والجمال الكوني. أخذتا من ضباب (Titan) قاعة للرسم، ومن جليد (Rhea) مساحة للتلوين، ومن تباين (Iapetus) مكاناً للتصوير، لتخليد هذا الاكتشاف العظيم.</p>
+                        
+                        <h2 style="margin-top: 25px;">روابط ذات صلة</h2>
+                        <ul>
+                            <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">الموقع الرسمي لأكاديمية الفنون ←</a></li>
+                            <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">انضم إلى مجتمع الفنانين العالمي ←</a></li>
+                            <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">تواصل مع الإدارة والدعم ←</a></li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGalleryPage(moonId) {
+            const meta = sectionMeta[moonId];
+            const artworks = galleryData[moonId] || [];
+            let cardsHtml = '';
+            
+            artworks.forEach(art => {
+                cardsHtml += `
+                    <div class="art-card">
+                        <div class="art-image-container">
+                            <img src="${art.imgUrl}" alt="${art.title}" class="art-image" onerror="this.src='https://via.placeholder.com/400x250?text=Image+Not+Found'">
+                        </div>
+                        <div class="art-info">
+                            <h3>${art.title}</h3>
+                            <span class="artist">الفنان: ${art.artist}</span>
+                            <p>${art.desc}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if(artworks.length === 0) {
+                cardsHtml = `<p style="text-align:center; grid-column: 1/-1; opacity:0.6;">لا توجد أعمال فنية في هذا القسم حالياً.</p>`;
+            }
+
+            return `
+                <div class="gallery-header">
+                    <h2>${meta.title}</h2>
+                    <p>${meta.subtitle}</p>
+                </div>
+                <div class="gallery-grid">
+                    ${cardsHtml}
+                </div>
+            `;
+        }
+
+        window.onload = () => loadPage('home');
+    </script>
+</body>
+</html>
+ا
