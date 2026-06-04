@@ -813,27 +813,7 @@
                     ${cardsHtml}
                 </div>
             `;
-        }
-
-        window.onload = () => loadPage('home');
-        // كود إضافة التاريخ التلقائي لحقوق الملكية
-        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ar-EG', dateOptions);
-        // دالة تفعيل وإلغاء وضع الكسوف الكوني
-        function toggleEclipseMode() {
-            const body = document.body;
-            const toggleIcon = document.querySelector('.eclipse-toggle .eclipse-icon');
-            
-            // تبديل الكلاس في الـ body
-            body.classList.toggle('eclipse-mode');
-            
-            // تغيير شكل الأيقونة لإعطاء إيحاء بعودة الشمس أو حلول الكسوف
-            if (body.classList.contains('eclipse-mode')) {
-                toggleIcon.innerText = '☀️'; // تظهر الشمس لإعادة الوضع الطبيعي
-                toggleIcon.parentElement.style.borderGlobal = "2px solid #ffd700";
-            } else {
-                toggleIcon.innerText = '🌑'; // يعود لقمر الكسوف
-            }
+       
         }
     </script>
     <footer>
