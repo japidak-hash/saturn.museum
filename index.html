@@ -130,19 +130,9 @@
         @keyframes textGlow { 0% { text-shadow: 0 0 5px rgba(242, 197, 114, 0.2); } 100% { text-shadow: 0 0 15px rgba(242, 197, 114, 0.8); } }
         @keyframes fillUp { 100% { width: 100%; } }
 
-        /* === زر التحكم بالصوت === */
-        .sound-toggle {
-            position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; border-radius: 50%;
-            background: rgba(10, 7, 5, 0.85); border: 2px solid #F2C572; color: #F2C572; font-size: 1.6rem;
-            cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(242, 197, 114, 0.3); transition: all 0.5s ease;
-            backdrop-filter: blur(5px);
-        }
-        .sound-toggle:hover { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
-
         /* === لوحة الإدارة السريّة (Modal) === */
-        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .admin-content { background: #111; width: 90%; max-width: 600px; border: 2px solid #F2C572; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(242, 197, 114, 0.3); max-height: 90vh; overflow-y: auto; color: #fff; }
+        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(10px); padding: 20px; }
+        .admin-content { background: #111; width: 100%; max-width: 600px; border: 2px solid #F2C572; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(242, 197, 114, 0.3); max-height: 90vh; overflow-y: auto; color: #fff; }
         .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(242,197,114,0.3); padding-bottom: 15px; margin-bottom: 20px; }
         .admin-header h2 { color: #F2C572; font-size: 1.6rem; }
         .close-btn { background: #ff4757; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-weight: bold; }
@@ -152,18 +142,12 @@
         .admin-input:focus { border-color: #F2C572; box-shadow: 0 0 10px rgba(242,197,114,0.2); }
         .admin-btn { background: linear-gradient(135deg, #F2C572, #D18A39); color: #000; font-weight: bold; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.1rem; }
         .admin-btn:hover { filter: brightness(1.1); }
+        .admin-btn-delete { background: linear-gradient(135deg, #ff4757, #c0392b); color: #fff; font-weight: bold; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.1rem; }
+        .admin-btn-delete:hover { box-shadow: 0 0 15px rgba(255, 71, 87, 0.4); }
     </style>
 </head>
 <body class="theme-home">
     
-    <!-- المشغل الصوتي المخفي -->
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- زر الصوت العائم -->
-    <button id="soundBtn" class="sound-toggle" onclick="toggleSound()" title="تشغيل/إيقاف الموسيقى">🔇</button>
-
     <div id="space-preloader">
         <div class="cosmic-loader-content">
             <div class="saturn-canvas">
@@ -201,6 +185,23 @@
                 <input type="text" id="artImg" class="admin-input" placeholder="رابط الصورة (URL مباشر)...">
                 <textarea id="artDesc" class="admin-input" rows="3" placeholder="وصف اللوحة الفنية..."></textarea>
                 <button class="admin-btn" onclick="addNewArtwork()">إضافة العمل الفني</button>
+            </div>
+
+            <!-- حذف عمل فني من الأقسام -->
+            <div class="admin-section">
+                <h3>🗑️ حذف لوحة من المتحف</h3>
+                <select id="deleteArtSection" class="admin-input" onchange="populateDeleteDropdown()">
+                    <option value="">اختر القسم للبحث فيه...</option>
+                    <option value="titan">Titan - قسم الرسم</option>
+                    <option value="rhea">Rhea - قسم التلوين</option>
+                    <option value="iapetus">Iapetus - قسم التصوير</option>
+                    <option value="enceladus">Enceladus - قسم التصميم</option>
+                    <option value="dione">Dione - قسم الخط</option>
+                </select>
+                <select id="deleteArtSelect" class="admin-input">
+                    <option value="">اختر اللوحة لحذفها...</option>
+                </select>
+                <button class="admin-btn-delete" onclick="deleteSelectedArtwork()">حذف اللوحة نهائياً 🗑️</button>
             </div>
 
             <!-- تعديل نصوص الرئيسية -->
@@ -313,19 +314,6 @@
 
         let currentPage = 'home'; 
 
-        // === التحكم بالصوت ===
-        function toggleSound() {
-            const music = document.getElementById('bgMusic');
-            const btn = document.getElementById('soundBtn');
-            if (music.paused) {
-                music.play().catch(error => alert("عذراً، المتصفح يحتاج لملف صوتي صحيح للتشغيل."));
-                btn.innerText = '🔊';
-            } else {
-                music.pause();
-                btn.innerText = '🔇';
-            }
-        }
-
         function renderRecentWorks() {
             let allWorks = [];
             for (let sec in galleryData) {
@@ -378,6 +366,11 @@
             document.getElementById('editAbout1').value = siteText.about1;
             document.getElementById('editAbout2').value = siteText.about2;
             document.getElementById('editStory').value = siteText.story;
+            
+            // تصفير قسم الحذف
+            document.getElementById('deleteArtSection').value = "";
+            document.getElementById('deleteArtSelect').innerHTML = '<option value="">اختر اللوحة لحذفها...</option>';
+            
             document.getElementById('adminModal').style.display = 'flex';
         }
 
@@ -415,6 +408,45 @@
             
             renderRecentWorks();
             loadPage(currentPage); 
+        }
+
+        // === وظائف الحذف ===
+        function populateDeleteDropdown() {
+            const section = document.getElementById('deleteArtSection').value;
+            const selectBox = document.getElementById('deleteArtSelect');
+            
+            selectBox.innerHTML = '<option value="">اختر اللوحة لحذفها...</option>';
+            
+            if (!section) return;
+
+            galleryData[section].forEach(art => {
+                const option = document.createElement('option');
+                option.value = art.id; 
+                option.text = art.title + " - (" + art.artist + ")";
+                selectBox.appendChild(option);
+            });
+        }
+
+        function deleteSelectedArtwork() {
+            const section = document.getElementById('deleteArtSection').value;
+            const artId = document.getElementById('deleteArtSelect').value;
+
+            if (!section || !artId) {
+                alert("يرجى اختيار القسم واللوحة المراد حذفها!");
+                return;
+            }
+
+            if (confirm("⚠️ هل أنت متأكد من حذف هذه اللوحة نهائياً من المتحف؟")) {
+                // تصفية اللوحات لإزالة اللوحة المحددة
+                galleryData[section] = galleryData[section].filter(art => art.id.toString() !== artId.toString());
+                localStorage.setItem('saturnGalleryData', JSON.stringify(galleryData));
+                
+                alert("تم حذف اللوحة بنجاح! 🗑️");
+                
+                populateDeleteDropdown(); // تحديث القائمة المنسدلة
+                renderRecentWorks(); // تحديث شريط أحدث الأعمال
+                loadPage(currentPage); // تحديث الصفحة
+            }
         }
 
         function saveHomepageText() {
