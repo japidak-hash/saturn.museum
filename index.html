@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
-        /* === إعدادات الصفحة الرئيسية (ثيم كوكب زحل المميز) === */
+        /* === إعدادات الصفحة الرئيسية === */
         :root {
             --bg-color: #0a0705; 
             --text-color: #fcf6eb; 
@@ -15,158 +15,43 @@
             --accent-2: #D9B48F; 
             --card-bg: rgba(242, 197, 114, 0.04);
             --border-color: rgba(242, 197, 114, 0.15);
-            --transition-speed: 0.5s;
             --nebula-glow: rgba(242, 197, 114, 0.15);
         }
 
-        /* ثيمات الأقسام المخصصة */
-        body.theme-titan {
-            --bg-color: #1A1A1A; 
-            --text-color: #E8D4B0; 
-            --accent-1: #D18A39; 
-            --accent-2: #A65A2A; 
-            --card-bg: rgba(26, 26, 26, 0.6);
-            --border-color: rgba(209, 138, 57, 0.3);
-            --nebula-glow: rgba(209, 138, 57, 0.12);
-        }
-        body.theme-rhea {
-            --bg-color: #F8F8F8; 
-            --text-color: #1c2529; 
-            --accent-1: #4A90E2; 
-            --accent-2: #B7D7E8; 
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --border-color: #D9D9D9;
-            --nebula-glow: rgba(183, 215, 232, 0.4);
-        }
-        body.theme-iapetus {
-            --bg-color: #111111; 
-            --text-color: #FFFFFF; 
-            --accent-1: #BDBDBD; 
-            --accent-2: #6E6E6E; 
-            --card-bg: rgba(28, 28, 28, 0.7);
-            --border-color: #6E6E6E;
-            --nebula-glow: rgba(255, 255, 255, 0.05);
-        }
-        body.theme-enceladus {
-            --bg-color: #FFFFFF; 
-            --text-color: #111111; 
-            --accent-1: #2D82B7; 
-            --accent-2: #9FE2FF; 
-            --card-bg: rgba(240, 248, 255, 0.9);
-            --border-color: #D7E3EA;
-            --nebula-glow: rgba(159, 226, 255, 0.4);
-        }
-        body.theme-dione {
-            --bg-color: #151515; 
-            --text-color: #F3E9D2; 
-            --accent-1: #D4AF37; 
-            --accent-2: #5E412F; 
-            --card-bg: rgba(30, 25, 22, 0.7);
-            --border-color: #D4AF37;
-            --nebula-glow: rgba(212, 175, 55, 0.1);
-        }
+        body.theme-titan { --bg-color: #1A1A1A; --text-color: #E8D4B0; --accent-1: #D18A39; --accent-2: #A65A2A; --card-bg: rgba(26, 26, 26, 0.6); --border-color: rgba(209, 138, 57, 0.3); --nebula-glow: rgba(209, 138, 57, 0.12); }
+        body.theme-rhea { --bg-color: #F8F8F8; --text-color: #1c2529; --accent-1: #4A90E2; --accent-2: #B7D7E8; --card-bg: rgba(255, 255, 255, 0.9); --border-color: #D9D9D9; --nebula-glow: rgba(183, 215, 232, 0.4); }
+        body.theme-iapetus { --bg-color: #111111; --text-color: #FFFFFF; --accent-1: #BDBDBD; --accent-2: #6E6E6E; --card-bg: rgba(28, 28, 28, 0.7); --border-color: #6E6E6E; --nebula-glow: rgba(255, 255, 255, 0.05); }
+        body.theme-enceladus { --bg-color: #FFFFFF; --text-color: #111111; --accent-1: #2D82B7; --accent-2: #9FE2FF; --card-bg: rgba(240, 248, 255, 0.9); --border-color: #D7E3EA; --nebula-glow: rgba(159, 226, 255, 0.4); }
+        body.theme-dione { --bg-color: #151515; --text-color: #F3E9D2; --accent-1: #D4AF37; --accent-2: #5E412F; --card-bg: rgba(30, 25, 22, 0.7); --border-color: #D4AF37; --nebula-glow: rgba(212, 175, 55, 0.1); }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif; 
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
+        body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; position: relative; display: flex; flex-direction: column; }
 
-        /* كود السحر السينمائي: حل مشكلة "الخربطة" وسلاسة الألوان بالكامل */
         body, header, footer, nav button, .home-card, .art-card, .search-container input, h1, h2, h3, p, span, .moon-name, .art-type, .stars, body::before {
-            transition: 
-                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.4s ease,
-                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                filter 0.6s ease !important;
+            transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease, border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease !important;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, var(--nebula-glow) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            pointer-events: none;
-            animation: cosmicPulse 8s infinite alternate ease-in-out;
-        }
+        body::before { content: ''; position: fixed; top: 50%; left: 50%; width: 600px; height: 600px; background: radial-gradient(circle, var(--nebula-glow) 0%, transparent 70%); transform: translate(-50%, -50%); z-index: -1; pointer-events: none; animation: cosmicPulse 8s infinite alternate ease-in-out; }
+        @keyframes cosmicPulse { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } }
 
-        @keyframes cosmicPulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-        }
-
-        /* تأثير النجوم المتلألئة */
-        .stars {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -2;
-            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-            opacity: 0.9; 
-        }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -2; background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat; opacity: 0.9; }
         body.theme-rhea .stars, body.theme-enceladus .stars { filter: invert(1); opacity: 0.5; }
 
-        header {
-            text-align: center;
-            padding: 35px 20px 25px 20px;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.25), transparent);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 900;
-            color: var(--accent-1);
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-            text-shadow: 0 0 25px var(--nebula-glow);
-        }
-
+        header { text-align: center; padding: 35px 20px 25px 20px; border-bottom: 1px solid var(--border-color); background: linear-gradient(to bottom, rgba(0,0,0,0.25), transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        h1 { font-size: 2.8rem; font-weight: 900; color: var(--accent-1); margin-bottom: 8px; letter-spacing: -0.5px; text-shadow: 0 0 25px var(--nebula-glow); }
         .subtitle { font-size: 1.05rem; opacity: 0.8; margin-bottom: 25px; font-weight: 500; }
 
-        /* === تنسيقات شريط البحث === */
         .search-container { margin: 0 auto 25px auto; max-width: 500px; position: relative; }
-        .search-container input {
-            width: 100%; padding: 14px 20px; border-radius: 30px;
-            border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.05);
-            color: var(--text-color); font-size: 1rem; font-weight: 500;
-            outline: none; backdrop-filter: blur(5px); text-align: right;
-        }
-        body.theme-rhea .search-container input, body.theme-enceladus .search-container input {
-            background: rgba(0, 0, 0, 0.05); color: #111;
-        }
+        .search-container input { width: 100%; padding: 14px 20px; border-radius: 30px; border: 1px solid var(--border-color); background: rgba(255, 255, 255, 0.05); color: var(--text-color); font-size: 1rem; font-weight: 500; outline: none; backdrop-filter: blur(5px); text-align: right; }
+        body.theme-rhea .search-container input, body.theme-enceladus .search-container input { background: rgba(0, 0, 0, 0.05); color: #111; }
         .search-container input::placeholder { color: var(--text-color); opacity: 0.6; }
         .search-container input:focus { border-color: var(--accent-1); box-shadow: 0 0 15px var(--nebula-glow); background: rgba(255, 255, 255, 0.1); }
 
-        /* === شريط الأقسام === */
-        nav {
-            display: flex; justify-content: flex-start; gap: 12px;
-            overflow-x: auto; padding: 10px 20px; scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch; 
-        }
+        nav { display: flex; justify-content: flex-start; gap: 12px; overflow-x: auto; padding: 10px 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
         nav::-webkit-scrollbar { display: none; }
-        nav { -ms-overflow-style: none; scrollbar-width: none; }
         @media (min-width: 769px) { nav { justify-content: center; overflow-x: visible; } }
 
-        /* تخصيص لون ثابت لكل زر بناءً على ثيم القسم الخاص به */
         #btn-home { --btn-theme: #F2C572; --btn-text: #0a0705; }
         #btn-titan { --btn-theme: #D18A39; --btn-text: #ffffff; }
         #btn-rhea { --btn-theme: #4A90E2; --btn-text: #ffffff; }
@@ -174,59 +59,47 @@
         #btn-enceladus { --btn-theme: #2D82B7; --btn-text: #ffffff; }
         #btn-dione { --btn-theme: #D4AF37; --btn-text: #111111; }
 
-        nav button {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--btn-theme) !important;
-            padding: 8px 25px; border-radius: 15px; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-        }
+        nav button { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--btn-theme) !important; padding: 8px 25px; border-radius: 15px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
         .moon-name { font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; font-family: Arial, sans-serif; color: var(--btn-theme) !important; }
         .art-type { font-size: 0.85rem; font-weight: 500; opacity: 0.8; color: var(--text-color); }
-        
         nav button:hover { border-color: var(--btn-theme) !important; box-shadow: 0 5px 15px var(--btn-theme) !important; transform: translateY(-4px); }
-        nav button.active {
-            background-color: var(--btn-theme) !important; border-color: var(--btn-theme) !important;
-            box-shadow: 0 8px 25px var(--btn-theme) !important; transform: scale(1.05) translateY(-2px);
-        }
+        nav button.active { background-color: var(--btn-theme) !important; border-color: var(--btn-theme) !important; box-shadow: 0 8px 25px var(--btn-theme) !important; transform: scale(1.05) translateY(-2px); }
         nav button.active .moon-name, nav button.active .art-type { color: var(--btn-text) !important; opacity: 1; font-weight: 700; }
 
-        /* === المحتوى الرئيسي === */
+        /* === شريط أحدث 5 أعمال الفنية الموحد === */
+        #recent-works-container { padding: 20px 5%; max-width: 1200px; margin: 0 auto; width: 100%; border-bottom: 1px solid var(--border-color); display: none; }
+        .recent-title { color: var(--accent-1); font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .recent-title::before { content: '✨'; }
+        .recent-scroll { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        .recent-scroll::-webkit-scrollbar { height: 6px; }
+        .recent-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .recent-scroll::-webkit-scrollbar-thumb { background: var(--accent-1); border-radius: 10px; }
+        .recent-mini-card { min-width: 220px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+        .recent-mini-img { width: 100%; height: 120px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .recent-mini-info { padding: 10px; text-align: center; }
+        .recent-mini-info h4 { font-size: 0.95rem; color: var(--text-color); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .recent-mini-info span { font-size: 0.75rem; color: var(--accent-1); }
+
         main { padding: 40px 5%; max-width: 1200px; margin: 0 auto; flex: 1; width: 100%; }
         #content-area { transition: opacity 0.25s ease-in-out !important; }
         .home-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; line-height: 1.9; }
-        
-        .home-card {
-            background-color: var(--card-bg); padding: 30px; border-radius: 20px;
-            border: 1px solid var(--border-color); backdrop-filter: blur(10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            animation: floatEffect 6s infinite ease-in-out alternate;
-        }
+        .home-card { background-color: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.2); animation: floatEffect 6s infinite ease-in-out alternate; }
         .home-card:nth-child(2) { animation-delay: 1.5s; }
         @keyframes floatEffect { 0% { transform: translateY(0px); } 100% { transform: translateY(-12px); } }
 
         .home-card h2 { color: var(--accent-1); font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
-        .teachers-badge {
-            display: inline-block; background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
-            color: #0b0f19; padding: 6px 18px; border-radius: 50px; margin-bottom: 12px; font-weight: 700; font-size: 0.9rem;
-        }
+        
+        /* كلاس الأزرار التي ستتلقى النقرات السرية */
+        .teachers-badge { display: inline-block; background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%); color: #0b0f19; padding: 6px 18px; border-radius: 50px; margin-bottom: 12px; font-weight: 700; font-size: 0.9rem; cursor: pointer; user-select: none; transition: transform 0.1s; }
+        .teachers-badge:active { transform: scale(0.95); }
         body.theme-rhea .teachers-badge, body.theme-enceladus .teachers-badge { color: #ffffff; background: var(--accent-1); }
 
         .gallery-header { text-align: center; margin-bottom: 40px; }
         .gallery-header h2 { font-size: 2.3rem; color: var(--accent-1); margin-bottom: 8px; font-weight: 900; }
-        
-        /* توضيح نص الوصف تحت اسم القسم */
-        .gallery-header p {
-            color: #ffffff !important; font-size: 1.15rem; font-weight: 700;
-            background-color: rgba(0, 0, 0, 0.65); display: inline-block;
-            padding: 6px 20px; border-radius: 30px; margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px);
-        }
+        .gallery-header p { color: #ffffff !important; font-size: 1.15rem; font-weight: 700; background-color: rgba(0, 0, 0, 0.65); display: inline-block; padding: 6px 20px; border-radius: 30px; margin-top: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px); }
 
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .art-card {
-            background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;
-            overflow: hidden; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative;
-        }
+        .art-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; }
         .art-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--accent-1); box-shadow: 0 15px 35px var(--nebula-glow); }
         .moon-badge { position: absolute; top: 15px; left: 15px; background: rgba(0, 0, 0, 0.7); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--accent-1); z-index: 2; }
         .art-image-container { width: 100%; height: 240px; overflow: hidden; position: relative; }
@@ -239,33 +112,18 @@
 
         @media (max-width: 768px) { .home-layout { grid-template-columns: 1fr; gap: 20px; } h1 { font-size: 2.2rem; } .home-card { animation: none; } }
 
-        /* === تنسيقات الفوتر (حقوق الملكية) === */
-        footer {
-            text-align: center; padding: 35px 20px; margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
+        footer { text-align: center; padding: 35px 20px; margin-top: auto; border-top: 1px solid var(--border-color); background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
         .footer-content p { font-size: 1.05rem; color: var(--text-color); margin-bottom: 8px; opacity: 0.9; }
         .footer-content .dev-rights { font-size: 0.9rem; opacity: 0.7; }
         .footer-content .dev-rights span { color: var(--accent-1); font-weight: 900; letter-spacing: 0.5px; text-shadow: 0 0 15px var(--nebula-glow); }
 
         /* === شاشة التحميل الكونية === */
-        #space-preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #050302; z-index: 999999;
-            display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
+        #space-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #050302; z-index: 999999; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s ease; }
         #space-preloader.hide-loader { opacity: 0; visibility: hidden; pointer-events: none; }
         .cosmic-loader-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
         .saturn-canvas { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
-        .saturn-ball {
-            position: absolute; top: 25px; left: 25px; width: 50px; height: 50px;
-            background: linear-gradient(135deg, #F2C572, #D18A39); border-radius: 50%; box-shadow: 0 0 20px rgba(242, 197, 114, 0.3);
-        }
-        .saturn-rings-loader {
-            position: absolute; top: 40px; left: -5px; width: 110px; height: 15px;
-            border: 3px solid rgba(217, 180, 143, 0.8); border-radius: 50%; transform: rotate(-20deg); box-shadow: 0 0 10px rgba(217, 180, 143, 0.2) inset;
-        }
+        .saturn-ball { position: absolute; top: 25px; left: 25px; width: 50px; height: 50px; background: linear-gradient(135deg, #F2C572, #D18A39); border-radius: 50%; box-shadow: 0 0 20px rgba(242, 197, 114, 0.3); }
+        .saturn-rings-loader { position: absolute; top: 40px; left: -5px; width: 110px; height: 15px; border: 3px solid rgba(217, 180, 143, 0.8); border-radius: 50%; transform: rotate(-20deg); box-shadow: 0 0 10px rgba(217, 180, 143, 0.2) inset; }
         .loader-title { color: #F2C572; font-size: 1.5rem; font-weight: bold; letter-spacing: 3px; margin-bottom: 5px; animation: textGlow 1.5s infinite alternate; }
         .loader-subtitle { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
         .progress-bar-container { width: 200px; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 5px; overflow: hidden; }
@@ -273,32 +131,22 @@
         @keyframes textGlow { 0% { text-shadow: 0 0 5px rgba(242, 197, 114, 0.2); } 100% { text-shadow: 0 0 15px rgba(242, 197, 114, 0.8); } }
         @keyframes fillUp { 100% { width: 100%; } }
 
-        /* === زر الكسوف الكوني العائم === */
-        .eclipse-toggle {
-            position: fixed; bottom: 30px; left: 30px; width: 55px; height: 55px; border-radius: 50%;
-            background: rgba(10, 7, 5, 0.85); border: 2px solid #F2C572; color: #F2C572; font-size: 1.6rem;
-            cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(242, 197, 114, 0.3); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(5px);
-        }
-        .eclipse-toggle:hover { transform: scale(1.1) rotate(180deg); border-color: #fff; box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
-
-        /* === ثيم الكسوف الكوني (عند التفعيل) === */
-        body.eclipse-mode {
-            --bg-color: #020203 !important; --text-color: #f1f5f9 !important;
-            --accent-1: #ffd700 !important; --accent-2: #cbd5e1 !important;
-            --card-bg: rgba(5, 5, 5, 0.95) !important; --border-color: rgba(255, 215, 0, 0.2) !important;
-            --nebula-glow: rgba(255, 215, 0, 0.15) !important;
-        }
-        body.eclipse-mode .art-card, body.eclipse-mode .home-card { border: 1px solid rgba(255, 215, 0, 0.25) !important; box-shadow: 0 0 25px rgba(255, 215, 0, 0.1) !important; background: rgba(3, 3, 5, 0.9) !important; }
-        body.eclipse-mode .art-card:hover, body.eclipse-mode .home-card:hover { border-color: #ffd700 !important; box-shadow: 0 0 35px rgba(255, 215, 0, 0.35) !important; transform: translateY(-8px) scale(1.02); }
-        body.eclipse-mode::before { background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 60%) !important; animation: eclipsePulse 4s infinite alternate ease-in-out !important; }
-        @keyframes eclipsePulse { 0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); } }
+        /* === لوحة الإدارة السريّة (Modal) === */
+        #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .admin-content { background: #111; width: 90%; max-width: 600px; border: 2px solid #F2C572; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(242, 197, 114, 0.3); max-height: 90vh; overflow-y: auto; color: #fff; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(242,197,114,0.3); padding-bottom: 15px; margin-bottom: 20px; }
+        .admin-header h2 { color: #F2C572; font-size: 1.6rem; }
+        .close-btn { background: #ff4757; color: white; border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; font-weight: bold; }
+        .admin-section { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .admin-section h3 { color: #D9B48F; margin-bottom: 15px; font-size: 1.2rem; }
+        .admin-input { width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(0,0,0,0.5); border: 1px solid rgba(242,197,114,0.4); color: white; border-radius: 8px; outline: none; }
+        .admin-input:focus { border-color: #F2C572; box-shadow: 0 0 10px rgba(242,197,114,0.2); }
+        .admin-btn { background: linear-gradient(135deg, #F2C572, #D18A39); color: #000; font-weight: bold; padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; width: 100%; font-size: 1.1rem; }
+        .admin-btn:hover { filter: brightness(1.1); }
     </style>
 </head>
 <body class="theme-home">
     
-    <!-- === شاشة التحميل الكونية === -->
     <div id="space-preloader">
         <div class="cosmic-loader-content">
             <div class="saturn-canvas">
@@ -313,10 +161,41 @@
         </div>
     </div>
 
-    <!-- زر الكسوف الكوني -->
-    <button class="eclipse-toggle" onclick="toggleEclipseMode()" title="تفعيل وضع الكسوف الكوني">
-        <span class="eclipse-icon">🌑</span>
-    </button>
+    <div id="adminModal">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>👑 لوحة الإدارة والتحكم</h2>
+                <button class="close-btn" onclick="closeAdminPanel()">إغلاق X</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>🎨 إضافة لوحة جديدة للمتحف</h3>
+                <select id="artSection" class="admin-input">
+                    <option value="titan">Titan - قسم الرسم</option>
+                    <option value="rhea">Rhea - قسم التلوين</option>
+                    <option value="iapetus">Iapetus - قسم التصوير</option>
+                    <option value="enceladus">Enceladus - قسم التصميم</option>
+                    <option value="dione">Dione - قسم الخط</option>
+                </select>
+                <input type="text" id="artTitle" class="admin-input" placeholder="اسم اللوحة...">
+                <input type="text" id="artArtist" class="admin-input" placeholder="اسم الفنان...">
+                <input type="text" id="artImg" class="admin-input" placeholder="رابط الصورة (URL مباشر)...">
+                <textarea id="artDesc" class="admin-input" rows="3" placeholder="وصف اللوحة الفنية..."></textarea>
+                <button class="admin-btn" onclick="addNewArtwork()">إضافة العمل الفني</button>
+            </div>
+
+            <div class="admin-section">
+                <h3>📝 تعديل نصوص الصفحة الرئيسية</h3>
+                <label style="color:#D9B48F; font-size:0.9rem;">عن أكاديمية الفنون:</label>
+                <textarea id="editAbout1" class="admin-input" rows="3"></textarea>
+                <label style="color:#D9B48F; font-size:0.9rem;">عن الموقع (المتحف):</label>
+                <textarea id="editAbout2" class="admin-input" rows="3"></textarea>
+                <label style="color:#D9B48F; font-size:0.9rem;">قصة الاكتشاف:</label>
+                <textarea id="editStory" class="admin-input" rows="4"></textarea>
+                <button class="admin-btn" onclick="saveHomepageText()">حفظ التعديلات النصية</button>
+            </div>
+        </div>
+    </div>
 
     <div class="stars"></div>
 
@@ -356,62 +235,51 @@
         </nav>
     </header>
 
-    <main id="content-area">
-        <!-- المحتوى سيتم تحميله هنا عبر الجافاسكربت -->
-    </main>
+    <div id="recent-works-container">
+        <h3 class="recent-title">أحدث 5 إضافات للمتحف</h3>
+        <div class="recent-scroll" id="recent-scroll-box">
+            </div>
+    </div>
 
-    <!-- === شريط حقوق الملكية === -->
+    <main id="content-area">
+        </main>
+
     <footer>
         <div class="footer-content">
             <p>هذا الموقع تابع لـ <strong>أكاديمية الفنون</strong> 🌌</p>
-            <p class="dev-rights">برمجة وتطوير: <span> لابوبو
-            </span> &copy; <span id="currentDate"></span></p>
+            <p class="dev-rights">برمجة وتطوير: <span>لابوبو</span> &copy; <span id="currentDate"></span></p>
         </div>
     </footer>
 
     <script>
-        const galleryData = {
+        // === 1. نظام قاعدة البيانات المحلية (LocalStorage) ===
+        const defaultGalleryData = {
             titan: [
-                {
-                    title: "عاصفة تيتان الذهبية", artist: "فنان الأكاديمية",
-                    desc: "لوحة زيتية تعبر عن العواصف الرملية والضباب الكثيف في غلاف تيتان.",
-                    imgUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500"
-                },
-                {
-                    title: "شروق زحل النحاسي", artist: "رهف",
-                    desc: "رؤية فنية مذهلة لبريق الحلقات عند انعكاس الضوء الذهبي.",
-                    imgUrl: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500"
-                }
+                { id: 1, title: "عاصفة تيتان الذهبية", artist: "فنان الأكاديمية", desc: "لوحة زيتية تعبر عن العواصف الرملية والضباب الكثيف في غلاف تيتان.", imgUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500", timestamp: 1717200000000 },
+                { id: 2, title: "شروق زحل النحاسي", artist: "رهف", desc: "رؤية فنية مذهلة لبريق الحلقات عند انعكاس الضوء الذهبي.", imgUrl: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=500", timestamp: 1717200001000 }
             ],
             rhea: [
-                {
-                    title: "بلورات الصقيع المضيء", artist: "رغد",
-                    desc: "عمل فني رقمي يبرز جمال التلوين والأزرق الجليدي المتلألئ.",
-                    imgUrl: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500"
-                }
+                { id: 3, title: "بلورات الصقيع المضيء", artist: "رغد", desc: "عمل فني رقمي يبرز جمال التلوين والأزرق الجليدي المتلألئ.", imgUrl: "https://images.unsplash.com/photo-1563089145-599997674d42?w=500", timestamp: 1717200002000 }
             ],
             iapetus: [
-                {
-                    title: "التضاد الكوني", artist: "ليلى",
-                    desc: "صورة فوتوغرافية عالية التباين، تلعب على التضاد الحاد بين النور الساطع والظلام الدامس.",
-                    imgUrl: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=500"
-                }
+                { id: 4, title: "التضاد الكوني", artist: "ليلى", desc: "صورة فوتوغرافية عالية التباين، تلعب على التضاد الحاد بين النور الساطع والظلام الدامس.", imgUrl: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=500", timestamp: 1717200003000 }
             ],
             enceladus: [
-                {
-                    title: "بوابة الغد الهندسية", artist: "كارول",
-                    desc: "تصميم واجهة مستخدم وهياكل ثلاثية الأبعاد تعتمد على درجات السماوي الفضي لخلق طابع تكنولوجي مستقبلية.",
-                    imgUrl: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500"
-                }
+                { id: 5, title: "بوابة الغد الهندسية", artist: "كارول", desc: "تصميم واجهة مستخدم وهياكل ثلاثية الأبعاد لخلق طابع تكنولوجي مستقبلية.", imgUrl: "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=500", timestamp: 1717200004000 }
             ],
             dione: [
-                {
-                    title: "مخطوطة الملوك السبعة", artist: "خطاط الأكاديمية",
-                    desc: "مخطوطة عربية كلاسيكية مكتوبة بماء الذهب على ورق كريمي فاخر.",
-                    imgUrl: "https://images.unsplash.com/photo-1561715276-a2d087060f1d?w=500"
-                }
+                { id: 6, title: "مخطوطة الملوك السبعة", artist: "خطاط الأكاديمية", desc: "مخطوطة عربية كلاسيكية مكتوبة بماء الذهب على ورق كريمي فاخر.", imgUrl: "https://images.unsplash.com/photo-1561715276-a2d087060f1d?w=500", timestamp: 1717200005000 }
             ]
         };
+
+        const defaultSiteText = {
+            about1: "أكاديمية الفنون هي صرح إبداعي يهدف إلى صقل المواهب وتوجيهها نحو الابتكار، نؤمن بأن الفن ليس مجرد هواية، بل هو لغة عالمية تتجاوز حدود الكواكب.",
+            about2: "متحف ساترن هو المعرض الرقمي الرسمي لأكاديمية الفنون. تم استلهام أقسامه من أقمار كوكب زحل، حيث يمثل كل قمر ثيماً فنياً فريداً يعكس نوعاً من أنواع الفنون البصرية المذهلة.",
+            story: "في رحلة استكشافية خيالية عبر الفضاء السحيق، كانت رغد ورهف تبحران بمركبتهما الفضائية بحثاً عن إلهام جديد. عندما اقتربتا من كوكب زحل (Saturn)، ذهلتا من جمال حلقاته وأقماره المتلألئة البديعة. قررتا ألا يكتفيا بالمشاهدة، بل أن تحوّلا هذه الأقمار إلى قاعات عرض فنية تنبض بالإبداع والجمال الكوني."
+        };
+
+        let galleryData = JSON.parse(localStorage.getItem('saturnGalleryData')) || defaultGalleryData;
+        let siteText = JSON.parse(localStorage.getItem('saturnSiteText')) || defaultSiteText;
 
         const sectionMeta = {
             titan: { title: "Titan", subtitle: "قسم الرسم - ضباب تيتان الذهبي", themeClass: "theme-titan" },
@@ -423,6 +291,107 @@
 
         let currentPage = 'home'; 
 
+        // === 2. نظام التحديثات وآخر 5 أعمال ===
+        function renderRecentWorks() {
+            let allWorks = [];
+            for (let sec in galleryData) {
+                galleryData[sec].forEach(art => allWorks.push({...art, sectionName: sectionMeta[sec].title}));
+            }
+            // ترتيب من الأحدث للأقدم
+            allWorks.sort((a, b) => b.timestamp - a.timestamp);
+            let top5 = allWorks.slice(0, 5);
+
+            const container = document.getElementById('recent-works-container');
+            const scrollBox = document.getElementById('recent-scroll-box');
+            
+            if(top5.length > 0) {
+                container.style.display = 'block';
+                scrollBox.innerHTML = top5.map(art => `
+                    <div class="recent-mini-card">
+                        <img src="${art.imgUrl}" class="recent-mini-img" onerror="this.src='https://via.placeholder.com/200'">
+                        <div class="recent-mini-info">
+                            <h4>${art.title}</h4>
+                            <span>قسم ${art.sectionName}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.style.display = 'none';
+            }
+        }
+
+        // === 3. شفرة الإدارة السرية (Easter Egg) ===
+        let clickCount = 0;
+        let clickTimer;
+        
+        function handleSecretClick() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount >= 5) {
+                openAdminPanel();
+                clickCount = 0;
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 1500); // يجب الضغط 5 مرات خلال ثانية ونصف
+            }
+        }
+
+        function openAdminPanel() {
+            document.getElementById('editAbout1').value = siteText.about1;
+            document.getElementById('editAbout2').value = siteText.about2;
+            document.getElementById('editStory').value = siteText.story;
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        // وظائف الإضافة والتعديل للحفظ في LocalStorage
+        function addNewArtwork() {
+            const section = document.getElementById('artSection').value;
+            const title = document.getElementById('artTitle').value.trim();
+            const artist = document.getElementById('artArtist').value.trim();
+            const imgUrl = document.getElementById('artImg').value.trim();
+            const desc = document.getElementById('artDesc').value.trim();
+
+            if(!title || !imgUrl) { alert("يرجى إدخال اسم اللوحة ورابط الصورة على الأقل!"); return; }
+
+            const newArt = {
+                id: Date.now(),
+                title: title,
+                artist: artist || "مجهول",
+                desc: desc || "لا يوجد وصف.",
+                imgUrl: imgUrl,
+                timestamp: Date.now()
+            };
+
+            galleryData[section].push(newArt);
+            localStorage.setItem('saturnGalleryData', JSON.stringify(galleryData));
+            
+            alert("تمت إضافة اللوحة بنجاح للمتحف! 🎨");
+            
+            // تصفير الحقول
+            document.getElementById('artTitle').value = '';
+            document.getElementById('artArtist').value = '';
+            document.getElementById('artImg').value = '';
+            document.getElementById('artDesc').value = '';
+            
+            renderRecentWorks();
+            loadPage(currentPage); // تحديث الصفحة لرؤية الجديد
+        }
+
+        function saveHomepageText() {
+            siteText.about1 = document.getElementById('editAbout1').value;
+            siteText.about2 = document.getElementById('editAbout2').value;
+            siteText.story = document.getElementById('editStory').value;
+            
+            localStorage.setItem('saturnSiteText', JSON.stringify(siteText));
+            alert("تم تحديث نصوص الرئيسية بنجاح! 📝");
+            if(currentPage === 'home') loadPage('home');
+        }
+
+
+        // === 4. وظائف تصفح الموقع والبحث ===
         function loadPage(pageId) {
             document.getElementById('searchInput').value = '';
             currentPage = pageId;
@@ -430,14 +399,9 @@
             
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`btn-${pageId}`).classList.add('active');
-
             contentArea.style.opacity = 0;
 
             setTimeout(() => {
-                // إزالة ثيم الكسوف عند التنقل لضمان رؤية الألوان الأصلية إذا أردت
-                document.body.classList.remove('eclipse-mode');
-                document.querySelector('.eclipse-toggle .eclipse-icon').innerText = '🌑';
-
                 if (pageId === 'home') {
                     document.body.className = 'theme-home';
                     contentArea.innerHTML = renderHomePage();
@@ -452,20 +416,14 @@
         function handleSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const contentArea = document.getElementById('content-area');
-
-            if (query === '') {
-                loadPage(currentPage);
-                return;
-            }
+            if (query === '') { loadPage(currentPage); return; }
 
             document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
             document.body.className = 'theme-home'; 
 
             let searchResults = [];
-
             for (const moonId in galleryData) {
-                const artworks = galleryData[moonId];
-                artworks.forEach(art => {
+                galleryData[moonId].forEach(art => {
                     if (art.title.toLowerCase().includes(query) || art.artist.toLowerCase().includes(query) || art.desc.toLowerCase().includes(query)) {
                         searchResults.push({ ...art, moonName: sectionMeta[moonId].title });
                     }
@@ -502,25 +460,23 @@
                 <div class="home-layout">
                     <div class="home-card">
                         <h2>إدارة الأكاديمية والمتحف</h2>
-                        <div class="teachers-badge">المعلم الأساسي: رهف / ليلى</div><br>
-                        <div class="teachers-badge">نائب المعلم: رغد / كارول</div>
+                        <div class="teachers-badge" onclick="handleSecretClick()" title="اضغط هنا عدة مرات لاكتشاف السر!">المعلم الأساسي: رهف / ليلى</div><br>
+                        <div class="teachers-badge" onclick="handleSecretClick()" title="اضغط هنا عدة مرات لاكتشاف السر!">نائب المعلم: رغد / كارول</div>
                         
                         <h2 style="margin-top: 25px;">عن أكاديمية الفنون</h2>
-                        <p>أكاديمية الفنون هي صرح إبداعي يهدف إلى صقل المواهب وتوجيهها نحو الابتكار، نؤمن بأن الفن ليس مجرد هواية، بل هو لغة عالمية تتجاوز حدود الكواكب.</p>
+                        <p>${siteText.about1}</p>
                         
                         <h2 style="margin-top: 25px;">عن الموقع</h2>
-                        <p>متحف ساترن هو المعرض الرقمي الرسمي لأكاديمية الفنون. تم استلهام أقسامه من أقمار كوكب زحل، حيث يمثل كل قمر ثيماً فنياً فريداً يعكس نوعاً من أنواع الفنون البصرية المذهلة.</p>
+                        <p>${siteText.about2}</p>
                     </div>
                     <div class="home-card">
                         <h2>قصة الاكتشاف</h2>
-                        <p>في رحلة استكشافية خيالية عبر الفضاء السحيق، كانت <strong>رغد</strong> و<strong>رهف</strong> تبحران بمركبتهما الفضائية بحثاً عن إلهام جديد. عندما اقتربتا من كوكب زحل (Saturn)، ذهلتا من جمال حلقاته وأقماره المتلألئة البديعة.</p>
-                        <p>قررتا ألا يكتفيا بالمشاهدة، بل أن تحوّلا هذه الأقمار إلى قاعات عرض فنية تنبض بالإبداع والجمال الكوني. أخذتا من ضباب (Titan) قاعة للرسم، ومن جليد (Rhea) مساحة للتلوين، ومن تباين (Iapetus) مكاناً للتصوير، لتخليد هذا الاكتشاف العظيم.</p>
+                        <p>${siteText.story}</p>
                         
                         <h2 style="margin-top: 25px;">روابط ذات صلة</h2>
                         <ul>
                             <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">الموقع الرسمي لأكاديمية الفنون ←</a></li>
                             <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">انضم إلى مجتمع الفنانين العالمي ←</a></li>
-                            <li><a href="#" style="color: var(--accent-1); text-decoration: none; font-weight:bold;">تواصل مع الإدارة والدعم ←</a></li>
                         </ul>
                     </div>
                 </div>
@@ -532,7 +488,10 @@
             const artworks = galleryData[moonId] || [];
             let cardsHtml = '';
             
-            artworks.forEach(art => {
+            // عرض الأحدث أولاً
+            let sortedArtworks = [...artworks].sort((a,b) => b.timestamp - a.timestamp);
+
+            sortedArtworks.forEach(art => {
                 cardsHtml += `
                     <div class="art-card">
                         <div class="art-image-container">
@@ -552,44 +511,26 @@
             return `<div class="gallery-header"><h2>${meta.title}</h2><p>${meta.subtitle}</p></div><div class="gallery-grid">${cardsHtml}</div>`;
         }
 
-        // === زر الكسوف الكوني (تغيير الثيم) ===
-        function toggleEclipseMode() {
-            const body = document.body;
-            const toggleIcon = document.querySelector('.eclipse-toggle .eclipse-icon');
-            body.classList.toggle('eclipse-mode');
-            
-            if (body.classList.contains('eclipse-mode')) {
-                toggleIcon.innerText = '☀️'; 
-                toggleIcon.parentElement.style.borderColor = "#ffd700";
-            } else {
-                toggleIcon.innerText = '🌑'; 
-                toggleIcon.parentElement.style.borderColor = "#F2C572";
-            }
-        }
-
-        // === تهيئة الموقع وشاشة التحميل والتاريخ ===
+        // === تهيئة الموقع ===
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. تحميل الصفحة الرئيسية عند فتح الموقع
+            renderRecentWorks(); // عرض أحدث 5 أعمال
             loadPage('home');
 
-            // 2. تحديث تاريخ الحقوق تلقائياً في الفوتر
             const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
             document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ar-EG', dateOptions);
 
-            // 3. كود شاشة التحميل الاحترافي المضاد للتجمد
             const preloader = document.getElementById('space-preloader');
-            if (!preloader) return;
-
-            let isPreloaderRemoved = false;
-            const removeLoader = () => {
-                if (isPreloaderRemoved) return; 
-                isPreloaderRemoved = true;
-                preloader.classList.add('hide-loader');
-                setTimeout(() => { preloader.remove(); }, 600);
-            };
-
-            window.addEventListener('load', () => { setTimeout(removeLoader, 1500); });
-            setTimeout(removeLoader, 3000); // إخفاء إجباري بعد 3 ثوانٍ
+            if (preloader) {
+                let isPreloaderRemoved = false;
+                const removeLoader = () => {
+                    if (isPreloaderRemoved) return; 
+                    isPreloaderRemoved = true;
+                    preloader.classList.add('hide-loader');
+                    setTimeout(() => { preloader.remove(); }, 600);
+                };
+                window.addEventListener('load', () => { setTimeout(removeLoader, 1500); });
+                setTimeout(removeLoader, 3000); 
+            }
         });
     </script>
 </body>
