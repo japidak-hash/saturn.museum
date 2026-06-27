@@ -89,7 +89,6 @@
 
         .home-card h2 { color: var(--accent-1); font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
         
-        /* كلاس الأزرار التي ستتلقى النقرات السرية */
         .teachers-badge { display: inline-block; background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%); color: #0b0f19; padding: 6px 18px; border-radius: 50px; margin-bottom: 12px; font-weight: 700; font-size: 0.9rem; cursor: pointer; user-select: none; transition: transform 0.1s; }
         .teachers-badge:active { transform: scale(0.95); }
         body.theme-rhea .teachers-badge, body.theme-enceladus .teachers-badge { color: #ffffff; background: var(--accent-1); }
@@ -131,6 +130,16 @@
         @keyframes textGlow { 0% { text-shadow: 0 0 5px rgba(242, 197, 114, 0.2); } 100% { text-shadow: 0 0 15px rgba(242, 197, 114, 0.8); } }
         @keyframes fillUp { 100% { width: 100%; } }
 
+        /* === زر التحكم بالصوت === */
+        .sound-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; border-radius: 50%;
+            background: rgba(10, 7, 5, 0.85); border: 2px solid #F2C572; color: #F2C572; font-size: 1.6rem;
+            cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(242, 197, 114, 0.3); transition: all 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+        .sound-toggle:hover { transform: scale(1.1); border-color: #fff; box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
+
         /* === لوحة الإدارة السريّة (Modal) === */
         #adminModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
         .admin-content { background: #111; width: 90%; max-width: 600px; border: 2px solid #F2C572; border-radius: 20px; padding: 30px; box-shadow: 0 0 30px rgba(242, 197, 114, 0.3); max-height: 90vh; overflow-y: auto; color: #fff; }
@@ -147,6 +156,14 @@
 </head>
 <body class="theme-home">
     
+    <!-- المشغل الصوتي المخفي -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- زر الصوت العائم -->
+    <button id="soundBtn" class="sound-toggle" onclick="toggleSound()" title="تشغيل/إيقاف الموسيقى">🔇</button>
+
     <div id="space-preloader">
         <div class="cosmic-loader-content">
             <div class="saturn-canvas">
@@ -161,6 +178,7 @@
         </div>
     </div>
 
+    <!-- لوحة الإدارة المخفية (Modal) -->
     <div id="adminModal">
         <div class="admin-content">
             <div class="admin-header">
@@ -168,6 +186,7 @@
                 <button class="close-btn" onclick="closeAdminPanel()">إغلاق X</button>
             </div>
 
+            <!-- إضافة عمل فني جديد -->
             <div class="admin-section">
                 <h3>🎨 إضافة لوحة جديدة للمتحف</h3>
                 <select id="artSection" class="admin-input">
@@ -184,6 +203,7 @@
                 <button class="admin-btn" onclick="addNewArtwork()">إضافة العمل الفني</button>
             </div>
 
+            <!-- تعديل نصوص الرئيسية -->
             <div class="admin-section">
                 <h3>📝 تعديل نصوص الصفحة الرئيسية</h3>
                 <label style="color:#D9B48F; font-size:0.9rem;">عن أكاديمية الفنون:</label>
@@ -235,14 +255,17 @@
         </nav>
     </header>
 
+    <!-- شريط أحدث 5 أعمال -->
     <div id="recent-works-container">
         <h3 class="recent-title">أحدث 5 إضافات للمتحف</h3>
         <div class="recent-scroll" id="recent-scroll-box">
-            </div>
+            <!-- يتم تعبئتها برمجياً -->
+        </div>
     </div>
 
     <main id="content-area">
-        </main>
+        <!-- المحتوى سيتم تحميله هنا عبر الجافاسكربت -->
+    </main>
 
     <footer>
         <div class="footer-content">
@@ -252,7 +275,6 @@
     </footer>
 
     <script>
-        // === 1. نظام قاعدة البيانات المحلية (LocalStorage) ===
         const defaultGalleryData = {
             titan: [
                 { id: 1, title: "عاصفة تيتان الذهبية", artist: "فنان الأكاديمية", desc: "لوحة زيتية تعبر عن العواصف الرملية والضباب الكثيف في غلاف تيتان.", imgUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500", timestamp: 1717200000000 },
@@ -291,13 +313,24 @@
 
         let currentPage = 'home'; 
 
-        // === 2. نظام التحديثات وآخر 5 أعمال ===
+        // === التحكم بالصوت ===
+        function toggleSound() {
+            const music = document.getElementById('bgMusic');
+            const btn = document.getElementById('soundBtn');
+            if (music.paused) {
+                music.play().catch(error => alert("عذراً، المتصفح يحتاج لملف صوتي صحيح للتشغيل."));
+                btn.innerText = '🔊';
+            } else {
+                music.pause();
+                btn.innerText = '🔇';
+            }
+        }
+
         function renderRecentWorks() {
             let allWorks = [];
             for (let sec in galleryData) {
                 galleryData[sec].forEach(art => allWorks.push({...art, sectionName: sectionMeta[sec].title}));
             }
-            // ترتيب من الأحدث للأقدم
             allWorks.sort((a, b) => b.timestamp - a.timestamp);
             let top5 = allWorks.slice(0, 5);
 
@@ -320,7 +353,7 @@
             }
         }
 
-        // === 3. شفرة الإدارة السرية (Easter Egg) ===
+        // === شفرة الإدارة مع كلمة المرور ===
         let clickCount = 0;
         let clickTimer;
         
@@ -328,10 +361,16 @@
             clickCount++;
             clearTimeout(clickTimer);
             if (clickCount >= 5) {
-                openAdminPanel();
-                clickCount = 0;
+                clickCount = 0; 
+                const password = prompt("🔐 تم الوصول للمنطقة السرية. الرجاء إدخال كلمة المرور:");
+                
+                if (password === "rahaf2026") {
+                    openAdminPanel();
+                } else if (password !== null) {
+                    alert("كلمة المرور خاطئة! ⛔");
+                }
             } else {
-                clickTimer = setTimeout(() => { clickCount = 0; }, 1500); // يجب الضغط 5 مرات خلال ثانية ونصف
+                clickTimer = setTimeout(() => { clickCount = 0; }, 1500);
             }
         }
 
@@ -346,7 +385,6 @@
             document.getElementById('adminModal').style.display = 'none';
         }
 
-        // وظائف الإضافة والتعديل للحفظ في LocalStorage
         function addNewArtwork() {
             const section = document.getElementById('artSection').value;
             const title = document.getElementById('artTitle').value.trim();
@@ -370,14 +408,13 @@
             
             alert("تمت إضافة اللوحة بنجاح للمتحف! 🎨");
             
-            // تصفير الحقول
             document.getElementById('artTitle').value = '';
             document.getElementById('artArtist').value = '';
             document.getElementById('artImg').value = '';
             document.getElementById('artDesc').value = '';
             
             renderRecentWorks();
-            loadPage(currentPage); // تحديث الصفحة لرؤية الجديد
+            loadPage(currentPage); 
         }
 
         function saveHomepageText() {
@@ -390,8 +427,6 @@
             if(currentPage === 'home') loadPage('home');
         }
 
-
-        // === 4. وظائف تصفح الموقع والبحث ===
         function loadPage(pageId) {
             document.getElementById('searchInput').value = '';
             currentPage = pageId;
@@ -488,7 +523,6 @@
             const artworks = galleryData[moonId] || [];
             let cardsHtml = '';
             
-            // عرض الأحدث أولاً
             let sortedArtworks = [...artworks].sort((a,b) => b.timestamp - a.timestamp);
 
             sortedArtworks.forEach(art => {
@@ -511,9 +545,8 @@
             return `<div class="gallery-header"><h2>${meta.title}</h2><p>${meta.subtitle}</p></div><div class="gallery-grid">${cardsHtml}</div>`;
         }
 
-        // === تهيئة الموقع ===
         document.addEventListener("DOMContentLoaded", () => {
-            renderRecentWorks(); // عرض أحدث 5 أعمال
+            renderRecentWorks(); 
             loadPage('home');
 
             const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
